@@ -1,0 +1,13 @@
+To select a candidate feature there needs to be a ranking metric. 
+Here the Fisher score is introduced. It is designed to indicate
+the discriminatory effect of a feature. Let $y$ be 
+the class label vector for $n$ timeseries $y \in \{1,2,\dots,c\}$ and 
+$\alpha$ be an interval feature. Then let $\mu^{\alpha}$ be the overall mean of elements in $\alpha$ and $\mu^{\alpha}_k, \sigma^{\alpha}_k$ be the mean and standard
+deviation of all the $k$-class elements in $\alpha$. 
+The Fisher score is defined as :
+\[
+  \operatorname{FisherScore}(\alpha, y) = 
+  \frac{\sum_{k = 1}^c n_k\left(\mu_k^{\alpha} - \mu^{\alpha}\right)^2}
+       {\sum_{k = 1}^{c} n_k\left(\sigma_k^{\alpha}\right)^2}
+\]
+The Fisher score is chosen for its fast computation, but other metrics are also possible.
