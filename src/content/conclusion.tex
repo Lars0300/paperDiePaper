@@ -1,35 +1,71 @@
-Time Series Forest (TSF) nad its successor, the Randomized-Supervised
-Time Series Forest(r-STSF), show both complementary advances in classifying time series.
-The goal is the same: Achieve interpretable, accurate classification in linear time complexity.
-They manage to use simple changes to existing algorithms to built decision trees without resorting to overly
-complex feature engineering. TSF introduces the core insight of using 
-randomly sampled interval values with a custom splitting criterion, which outperforms
-previous algorithms built on entropy gain. This simply adjustment enables TSF to 
-outperform strong baselines like NN-DTW on a wide range of benchmarks, while preserving the 
-key advantage of interpretability via temporal importance curves.
+Time Series Forest (TSF) and 
+its successor, the Supervised Time
+Series Forest (STSF), show both 
+complementary advances in
+classifying time series. 
+The goal is the same: 
+Achieve interpretable, 
+accurate classification in linear 
+time complexity. They manage to use 
+simple changes to existing algorithms to 
+build decision trees without 
+resorting to overly complex feature
+engineering. TSF introduces the 
+core insight of using randomly 
+sampled interval values with a 
+custom splitting criterion, which 
+outperforms previous algorithms 
+built on entropy gain. This simple 
+adjustment enables TSF to outperform
+strong baselines like NN-DTW on a 
+wide range of benchmarks, while preserving
+the key advantage of interpretability
+via temporal importance curves.
 
-The reliance on purely random feature generation, limits TSF in settings where the 
-relevant temporal structure is sparse or subtle %TODO: ref
-Precision is sacrificed for robustness %ref TODO:
-Also while being conceptually elegant, the temporal importance curve 
-is biased toward central indices due to interval frequency effects. TSF does not introduce 
-a mechanism for normalizing or filtering out these uninformative peaks.
+The reliance on purely random feature 
+generation limits TSF in settings where
+the relevant temporal structure is 
+sparse or subtle. Precision is sacrificed
+for robustness. Also, while being conceptually
+elegant, the temporal importance curve
+is biased toward central indices due 
+to interval frequency effects. TSF 
+does not introduce a mechanism for 
+normalizing or filtering out these uninformative
+peaks.
 
-These issues are addressed in the construction of STSF, by replacing node-level feature randomness
-with tree-level interval supervision. A pre-search of the entire time series using a Fisher score-based strategy
-is used to identify candidate discriminatory intervals
-It also further enhances coverage with 
-through multiple time series representation.
-These mechanisms increase both precision and efficiency resulting in STSF achieving better accuracy than TSF while being an 
-order of magnitude faster on long series. %TODO: ref
+These issues are addressed in the 
+construction of STSF, by replacing
+node-level feature randomness with 
+tree-level interval supervision. 
+A pre-search of the entire time series
+using a Fisher score-based strategy
+is used to identify candidate discriminatory
+intervals. It also further enhances
+coverage through multiple time series representation.
+These mechanisms increase both precision
+and efficiency, resulting in STSF
+achieving better accuracy than TSF while
+being an order of magnitude faster on
+long series.
 
-Despite these improvements, STSF comes with new costs: 
-interpretability suffers and especially t
-%TODO: REF DESPERATLY NEEDED
+Despite these improvements, STSF 
+comes with new costs: interpretability
+suffers and especially the frequency-domain and
+derivative-based representations make
+semantic mapping harder for practitioners.
 
-In sum, TSF and STSF show that it is possible to build time series classifiers that combine
-competitiveness with interpretability. TSF leverages randomness to ensure robustness and simplicity and 
-r-STSF introduces supervision to increase focus and precision. They establish a foundation for interval-based 
-methods that are both practical and transparent. Their success suggests that refining how and where
-information is extracted within the time series is preferable to increasing
-complexity.
+
+In sum, TSF and STSF show that it 
+is possible to build time series
+classifiers that combine competitiveness with
+interpretability. TSF leverages randomness to
+ensure robustness and simplicity and
+STSF introduces supervision to increase
+focus and precision. They establish
+a foundation for interval-based
+methods that are both practical and
+transparent. Their success suggests
+that refining how and where information
+is extracted within the time series
+is preferable to increasing complexity.
