@@ -1,0 +1,34 @@
+\subsubsection*{Setup}
+STSF and TSF is tested on a set of 85 benchmark datesets. %TODO: ref the same
+It is also compared to 1NN-DTW, RISE, BOSS, FCN, ResNet, Hive-Cote, PF and TS-CHIEF %TODO: ref
+For every competitor the average classification accuracy is computed over 10 runs for each dataset.
+
+\subsection*{Result}
+As seen in Table \Cref{tab:stsf_full_results} STSF ranks higher on average than 1NN-DTW, TSF, RISE, PF, FCN and BOSS.
+Only ResNet, HIVE-COTE, and TS-CHIEF rank higher than STSF. 
+TSFs accuracy is the second lowest, only beating 1NN-DTW. 
+Considering the trade offs in interpretability for TSF and speed for STSF however these results bode well for the two algorithms, because the 
+difference in accuracy is so small. Through this test it has been shown that both can archieve state of the 
+art accuracy.
+\begin{table}[h]
+\centering
+\caption{Average classification accuracy and rank of all compared methods from the STSF benchmark}
+\label{tab:stsf_full_results}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Method} & \textbf{Average Accuracy (\%)} & \textbf{Average Rank} \\
+\midrule
+1NN-DTW     & 75.91 & 8.16 \\
+TSF         & 78.19 & 6.90 \\
+RISE        & 78.84 & 6.55 \\
+BOSS        & 81.16 & 6.10 \\
+FCN         & 80.92 & 5.57 \\
+ResNet      & 82.48 & 4.70 \\
+HIVE-COTE   & 84.71 & 3.36 \\
+PF          & 81.94 & 5.42 \\
+TS-CHIEF    & 84.64 & 3.28 \\
+STSF        & 82.60 & 4.95 \\
+\bottomrule
+\end{tabular}
+\end{table}
+

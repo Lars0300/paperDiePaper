@@ -1,0 +1,6 @@
+At each node running the for loops has a complexity 
+of $M$ intervals, 3 interval features and $\kappa$ thresholds.
+Each depth of the tree has at most $|data| = N$ nodes and the maximum depth of a tree can be assumed
+as $O(\log N)$. As $\kappa$ is a constant the time complexity
+for a single tree can be seen as $O(M N \log N)$. For a forest 
+with $nTree$ trees that means the time complexity is at most $O(nTree M N \log N)$
