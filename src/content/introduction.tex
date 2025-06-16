@@ -1,0 +1,34 @@
+\par Time series classification is a supervised learning task of 
+assigning labels to sequences of observations. There are two 
+basic approaches to this work. 
+
+Instance-based methods use regular classifiers that treat each time point
+as a feature. An example for that is One-Nearest-Neighbor With Dynamic Time Warping 
+(NNDTW), which is robust to the distortion of the time axis and exceptionally difficult to beat. %TODO: ref from the main paper also quoting.
+This method however offers little interpretability 
+regarding which temporal regions or patterns differentiate the classes.
+
+In contrast feature-based methods use temporal features calculated over time series intervals. %TODO: ref from main paper 
+These are called interval features and they capture localized patterns that may be highly 
+discriminative, even when the same patterns occur at slightly different times. They provide 
+more interpretable models, because they allow to identify specific regions that contribute to classification decisions.
+These classification structures are then called decision trees
+
+Previous work has constructed decision trees using class-based measures such as entropy gain, evaluating
+numerous candidate splits derived from interval-based features. However, many of these splits exhibit 
+similar class-separation ability. To resolve such ambiguities, more refined measures are needed to 
+differentiate between equally effective splits. Additionally, there is demand for a classifier 
+that is not only accurate and efficient but also capable of revealing which temporal characteristics 
+drive classification decisions.
+
+To fulfill this demand TSF introduces a new split criterion called Entrance Gain. 
+This measure has been shown to outperform Entropy Gain and also NNDTW algorithms. 
+Computational complexity remains efficient and scalable, because of a random sampling
+strategy.
+
+TSF also has its shortcomings however. Because of the random sampling strategy of the intervals,
+alignment with meaningful temporal patterns is reduced, leading to suboptimal accuracy and interpretability.
+To alleviate this problem STSF and r-STSF are introduced. STSF addresses this by generating a fixed pool of 
+intervals prior to training, thus leading to higher alignment to discriminative temporal segments.
+r-STSF builds on this by stratifying interval sampling by class, allowing to capture class-specific
+temporal patterns further boosting performance and robustness.

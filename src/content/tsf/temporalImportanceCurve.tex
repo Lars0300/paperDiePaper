@@ -1,0 +1,24 @@
+"TSF consists of multiple trees and is difficult to understand", so 
+there is need for a method to extract interpretability from a 
+forest. The temporal importance curve is introduced to reveal which parts of the 
+time series contribute most to the classification decision. For that am importance function is built for each feature type and
+used for all time points of the dataset. The Curve then is built by graphing those results out.
+
+The importance function is based on the entropy gain of each split node $v$ in the forest $SN$ for the given feature type. All the 
+nodes which intervals time-point $t$ are considered and their entropy gain for the given feature type is 
+summed up. If the feature is not used in the split of the node, the entropy gain is set to zero.
+
+\[
+	\operatorname{Imp}_k(t) = \sum_{t_{start} \leq t \leq t_{end}, v \in SN}
+\]
+
+The method reveals temporal patterns in the data relevant for classification. Peaks in the curve indicate time regions used by strong splits.
+Because points in the center of the series appear in more intervals, there is a natural bias towards them. To counteract this, the authors compare
+uninformative datasets with the calculated importance curve. %TODO: ref dataset figure 
+
+In practice, the curves highlight discriminative intervals successfully %TODO: ref 
+As an example % TODO: ref
+the temporal importance curves peak precisely in regions with specific intervals %TODO: figure
+
+Using this method of observing the strength of the splits, it can be shown that entrance gain gives sharper and 
+more localized peaks, thus improving the interpretability and specificity of the importance curves.

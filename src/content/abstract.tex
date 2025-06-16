@@ -1,0 +1,15 @@
+Time series classification (TSC) presents significant challenges in domains requiring both 
+high efficiency and interpretability, particularly for long and high-frequency sensor data. 
+Existing state-of-the-art models achieve strong performance but often suffer from prohibitive
+computational costs and opaque decision processes. This paper introduces the Supervised Time 
+Series Forest (STSF), a novel interval-based TSC method that directly addresses these limitations. 
+STSF employs a supervised binary search strategy across three complementary time series 
+representations—original, derivative, and frequency domain—guided by feature ranking metrics 
+such as the Fisher score. Unlike the Time Series Forest (TSF), which relies on random interval 
+sampling, STSF drastically reduces the feature space from quadratic to logarithmic scale, enabling 
+orders-of-magnitude faster training times. Experimental results on 85 benchmark datasets 
+demonstrate that STSF achieves classification accuracy on par with state-of-the-art methods like 
+HIVE-COTE and TS-CHIEF, while maintaining linear complexity in practice. Additionally, STSF enables 
+interpretable classification via regions of interest derived from discriminatory interval overlaps.
+The proposed method bridges the gap between performance, scalability, and interpretability, 
+offering a viable TSC solution for modern data-intensive applications.

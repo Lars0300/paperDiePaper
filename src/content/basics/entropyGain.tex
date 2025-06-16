@@ -1,0 +1,22 @@
+Entropy gain is a widely used criterion to evaluate a split 
+in a tree node. It quantifices the reduction in class impurity
+after a given split. The higher the entropy gain, the better the 
+seperation. 
+
+Let $\{1, 2, ..., C\} := \mathfrak{C}$ be all class labels and 
+$\gamma_c$ with $c \in \mathfrak{C}$ the proportion of the class $c$ in 
+the current dataset. Then entropy is defined as 
+\[
+	\operatorname{Entropy}(\operatorname{data}) := - \sum_{c = 1}^{C} \gamma_c \log \gamma_c
+\]
+At a node the dataset is split into two and passed to the 
+nodes children. Those new datasets have a different entropy than the 
+parents dataset, with a lower entropy meaning a better purity. 
+Let $\operatorname{ds}_{p}$ with $n_{p} = |\operatorname{ds}_p|$ be the parents dataset and $\operatorname{ds}_{l}, \operatorname{ds}_{r}$ with $n_{l}, n_{r} = |\operatorname{ds}_{l}|, |\operatorname{ds}_{r}|$ the childrens.
+To now measure the entropy gain following formular is used.
+\[
+	\Delta \operatorname{Entropy} = \operatorname{Entropy}(\operatorname{ds}_p) - \left(\frac{n_{l}}{n_{p}}\operatorname{Entropy}(\operatorname{ds}_{l}) + \frac{n_{r}}{n_{p}} \operatorname{Entropy}(\operatorname{ds}_{r})\right)
+\]
+	
+
+So lower entropy meaning higher purity in the children adjustet for the sizes of the datasets will lead to higher entropy gain.

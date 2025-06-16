@@ -1,0 +1,20 @@
+
+In TSF only the original/time-domain representation of a time series is looked at.
+To capture a broader range of discriminations STSF uses multiple representations.
+\subsubsection*{Periodogram}
+Using a discrete Fourier transform the time series is mapped into the 
+frequency domain. This allows STSF to detect intervals with discriminative periodic patterns,
+even if they occur at varying time points across instances. "A side benefit of this 
+representation is that it helps to indirectly detect phase-independent discriminatory intervals, i.e.m
+discriminatory features located at different time regions of the original series as described in 
+Fig." %TODO:REF
+
+\subsubsection*{Derivative representation}
+STSF also adopts the derivative representation as one of three complementary views 
+on the input time series. The derivative captures local trends. This view emphasizes hte shape or dynamic behavior of the 
+series over absolute levels. "The
+discrete derivative of a time series $f$ with length $n$ is defined by
+\[
+	f'(i) = f(i) - f(i - 1) \forall ~ i \in \{2,3, \dots, n\}
+\] %TODO: cite derivative
+

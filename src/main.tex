@@ -1,0 +1,108 @@
+\documentclass[sigconf,natbib=false]{acmart}
+
+%%%%%%%%
+% Packages
+%%%%%%%%
+
+\usepackage[backend=biber]{biblatex}
+
+% Filter warnings issued by package biblatex starting with "Patching footnotes failed"
+% Source: https://tex.stackexchange.com/questions/202988/beamer-patching-footnotes-warning-patching-footnotes-failed-footnote-detectio
+\usepackage{silence}
+\WarningFilter{biblatex}{Patching footnotes failed}
+
+% For formal tables
+\usepackage{booktabs} 
+\usepackage{tikz}
+\usepackage{algorithm,algpseudocode}
+% Hyperref for formatting urls via the \url{} command.
+% Should be loaded last, but before cleverref:
+\usepackage{hyperref}
+
+% For automatic reference type labelling.
+% For example: for a figure with \label{fig:figure1}, \Cref{fig:figure1} will print ``Figure 1''.
+% !loaded last due to hyperref!
+\usepackage{cleveref}
+
+
+\usepackage{titlesec}
+
+\titleformat{\subsubsection}[block]{\bfseries\normalsize}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{1em}{0.5em}
+
+%%%%%%%%
+% Remove copyright
+%%%%%%%%
+\setcopyright{none}
+\settopmatter{printacmref=false}
+\acmISBN{} % set this to remove ISBN
+\acmDOI{} % set this to remove DOI
+
+
+%%%%%%%%
+% Meta information
+%%%%%%%%
+\acmConference[]
+	{Seminar: Ausgew\"ahlte Themen des Machine Learning}
+	{SS \the\year}
+
+
+%%%%%%%%
+% Bibliography sources
+%%%%%%%%
+
+% * you can use a remote bibliography from BibSonomy (change 'dmir' to your own username)
+%\addbibresource[location=remote]{http://www.bibsonomy.org/bib/user/dmir/myown}
+
+% * or a local file
+\addbibresource{bibliography.bib}
+
+
+
+\begin{document}
+
+%%%%%%%%
+% Front matter
+%%%%%%%%
+
+\title{Interpretable Time Series Classification with Interval-Based Forests}
+\subtitle{From Random Sampling to Stratified Selection in TSF and STSF}
+
+\author{Lars Tönsing}
+\affiliation{%
+  \institution{University of W\"urzburg}
+}
+% \email{trovato@corporation.com}
+
+
+\begin{abstract}
+\input{content/abstract.tex}
+\end{abstract}
+
+
+%%%%%%%%
+% Content
+%%%%%%%%
+
+\maketitle
+
+\section{Introduction}
+\input{content/introduction.tex}
+
+\section{Basics}
+\input{content/basics.tex}
+
+\section{Time Series Forest Classifier (TSF)}
+\input{content/tsf.tex}
+
+\section{Method 2}
+\input{content/stsf.tex}
+
+\section{Conclusion}
+\input{content/conclusion.tex}
+
+\section{Literature}
+You should have 10 citations from peer reviewed papers and/or books. \\
+Length estimate: 1/2 column
+
+\end{document}

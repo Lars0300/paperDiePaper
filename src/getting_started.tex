@@ -1,0 +1,87 @@
+\documentclass[sigconf,natbib=false]{acmart}
+
+%%%%%%%%
+% Packages
+%%%%%%%%
+
+% For formal tables
+\usepackage{booktabs} 
+
+% Hyperref for formatting urls via the \url{} command.
+% Should be loaded last, but before cleverref:
+\usepackage{hyperref}
+
+% For automatic reference type labelling.
+% For example: for a figure with \label{fig:figure1}, \Cref{fig:figure1} will print ``Figure 1''.
+% !loaded last due to hyperref!
+\usepackage{cleveref}
+
+
+%%%%%%%%
+% Remove copyright
+%%%%%%%%
+\setcopyright{none}
+\settopmatter{printacmref=false}
+\acmISBN{} % set this to remove ISBN
+\acmDOI{} % set this to remove DOI
+
+
+%%%%%%%%
+% Meta information
+%%%%%%%%
+\acmConference[]
+	{Seminar: Ausgew\"ahlte Themen des Machine Learning}
+	{SS \the\year}
+	{}
+
+\begin{document}
+
+%%%%%%%%
+% Front matter
+%%%%%%%%
+
+\title{Title of the Seminar Paper}
+\subtitle{An optional subtitle}
+
+\author{Your Name}
+\affiliation{%
+  \institution{University of W\"urzburg}
+}
+
+
+\begin{abstract}
+This template gives you an idea how your paper should be formatted. It provides
+a few examples on how you can use \LaTeX.
+\end{abstract}
+
+
+%%%%%%%%
+% Content
+%%%%%%%%
+
+\maketitle
+
+ 
+\input{content/introduction}
+\input{content/othercontent}
+
+\section{Acknowledgements}
+The style of this template as well as the contents of this file are based on the
+\textit{2017 ACM Master Article
+Template}\footnote{\url{https://www.acm.org/publications/proceedings-template}}.
+
+
+%%%%%%%%
+% Bibliography sources
+%%%%%%%%
+
+{\small
+\bibliographystyle{ieee_fullname}
+% * you can use a remote bibliography from BibSonomy (change 'dmir' to your own username)
+%\bibliography{http://www.bibsonomy.org/bib/user/dmir/myown}
+
+% * or a local file
+\bibliography{bibliography.bib}
+}
+
+\end{document}

@@ -1,0 +1,29 @@
+On a time series interval starting at $t_{\mathrm{start}}$ and ending at $t_{\mathrm{end}}$ an interval feature is a statistical 
+measure on the values between those two points. 
+Let $K$ be the number of feature types and $f_k((t_{\mathrm{start}}, t_{\mathrm{end}}))(k =1,2, \dots, K)$ be the $k$-th type. 
+\par For TSF the three types: $f_1 = mean$, $f_2 = standard$ $deviation$ and $f_3 = slope$ are chosen and
+defined as:
+\begin{align*}
+	f_1 (t_{\mathrm{start}}, t_{\mathrm{end}}) & = 
+	\frac{\sum_{i = t_{\mathrm{start}}}^{t_{\mathrm{end}}}v_i}{t_{\mathrm{end}} - t_{\mathrm{start}} + 1} \\
+	f_2 (t_{\mathrm{start}}, t_{\mathrm{end}}) & = \begin{cases}
+		\sqrt{\frac{\sum^{t_{\mathrm{end}}}_{i = t_{\mathrm{start}}} ( v_i - f_1 (t_{\mathrm{start}}, t_{\mathrm{end}}))^2}{t_{\mathrm{end}} - t_{\mathrm{start}}}} & t_{\mathrm{end}} > t_{\mathrm{start}} \\
+		0 & t_{\mathrm{end}} = t_{\mathrm{start}}
+	\end{cases} \\
+	f_3 (t_{\mathrm{start}}, t_{\mathrm{end}}) & = \begin{cases}
+		\hat{\beta} & t_{\mathrm{end}} > t_{\mathrm{start}} \\
+		0 & t_{\mathrm{end}} = t_{\mathrm{start}}
+	\end{cases}
+\end{align*}
+where $\hat{\beta}$ is the slope of the least squares regression line of the training set 
+$\{(t_{\mathrm{start}}, v_{t_{\mathrm{start}}}), (t_{\mathrm{start}} + 1, v_{t_{\mathrm{start}} + 1}), \dots, (t_{\mathrm{end}}, v_{t_{\mathrm{end}}})\}$.
+
+In the here considered algorithm TSF  only these three interval features are 
+considered. This is because they offer high interpretability and low computational costs. 
+STSF uses additionally the statistical features: $f_4 = median$, $f_5 = interquartile Range$, $f_6= min$ and $f_7 = max$.
+
+However using a larger
+set of feature space, using more complex and potentially more discriminative interval features is possible.
+The TS-CHIEF classifier, for example, uses more features . %TODO: rewrite
+Incorporating such features would substantially increase complexity and reduce the transparency of the model,
+diverging from the design priorities of TSF and r-STSF and are therefore not considered. %TODO: ref

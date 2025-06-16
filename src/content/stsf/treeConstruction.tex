@@ -1,0 +1,6 @@
+To now construct trees a modified TSF is used. Instead 
+of getting random samples the feature set is passed through the construction method.
+Then as in TSF entrance gain is maximized. This approach has a faster complexity, because 
+the sample size is reduced to $O(\log m)$, so that the
+complexity drops to $O(nTree \log m N \log N)$, where $N$ is the maximum depth of the 
+tree and $nTree$ is the amount of trees created. %TODO: ref complexity

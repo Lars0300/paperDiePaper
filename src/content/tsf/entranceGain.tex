@@ -1,0 +1,22 @@
+Entropy gain however has its limits, because "the number of  %TODO: ref Entropy gain
+candidate splits can be large, and there are often cases 
+where multiple candidate splits have the same $\Delta\operatorname{Entropy}$. %TODO: ref main paper
+
+
+The paper introduced the splitting criterion entrance gain. % TODO: ref
+For this the difference between the the threshold $\tau$ and the value
+of the interval feature of all timeseries in the dataset is considered. The minimum
+of all those values is called the $\operatorname{Margin}$.
+
+For a split $f_k^n(t_{\mathrm{start}}, t_{\mathrm{end}}) \leq \tau$ for the timeseries $n$ 
+\[
+	\operatorname{Margin} = \min_{n = 1,2, ..., N} \left|f_k^n (t_{\mathrm{start}}, t_{\mathrm{end}}) - \tau \right|
+\]
+
+Entrance gain $E$ then is the combination of this Margin and $\Delta$Entropy with a a scalar $\alpha$ small 
+enough to make the entrance gain a tiebreaker and nothing more.
+
+\[
+	E = \Delta\operatorname{Entropy} + \alpha \cdot\operatorname{Margin}
+\]
+

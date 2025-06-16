@@ -1,0 +1,7 @@
+STSF uses a similar algorithm as TSF to build decision trees. 
+However the difference lies in the feature space used, the time series representation 
+and the sampling strategy. The goal is to reduce the interval space size 
+to $O(\log M)$ and to find more discriminate intervals to achieve better classification.
+Instead of relying on random intervals, it employs
+a supervised search to identify informative intervals 
+across multiple representations.

@@ -1,0 +1,94 @@
+To build now a tree a recursive function is used. In each recursion step a single node of the 
+tree is created. Each node holds an entrance gain $E^*$, an entropy gain $\Delta Entropy^*$, the 
+interval $(t_{\mathrm{start}}, t_{\mathrm{end}})^*$, a threshold $\tau^*$ and an interval feature $f_*$.
+
+\subsubsection*{Random Sampling Strategy}
+The feature space of all possible intervals for a timeseries the length of $M$
+is $O(M^2)$. To reduce this feature space an algorithm $SampleIntervals()$ is introduced. % TODO: ref algo
+It first randomly samples $\sqrt{M}$ interval sizes. Then for each interval size $w$ it selects
+a set of starting points from $\{1, \dots, M-w+1\}$. The size of the set is $\sqrt{M - w + 1}$, so that 
+there are fewer starting points for larger interval sizes. For all these starting points $t_{start}$ the point 
+$t_{end} = t_{start} + w - 1 $ is added to the set of all intervals, so that the feature space gets reduced to 
+$O(\sqrt{M} \cdot \sqrt{M}) = O(M)$.
+
+\begin{algorithm}[H]
+\caption{\textsc{SampleIntervals}$(M)$, The function RandSampNoRep(set, samplesize)
+randomly selects samplesize elements from set without replacement.}
+\begin{algorithmic}[1]
+\State $T_{start} \gets \emptyset$, $T_{end} \gets \emptyset$
+\State $W \gets \textsc{RandSampNoRep}(\{1, \dots, M\}, \sqrt{M})$
+\ForAll{$w \in W$}
+    \State $S \gets \textsc{RandSampNoRep}(\{1, \dots, M - w + 1\}, \sqrt{M - w + 1})$
+    \ForAll{$t_{start} \in S$}
+        \State $T_{start} \gets T_{start} \cup \{t_{start}\}$
+        \State $T_{end}  \gets T_{end}  \cup \{t_{start}  + w - 1\}$
+    \EndFor
+\EndFor
+\State \Return $\langle T_1, T_2 \rangle$
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection*{Threshold Set Calculation}
+
+To identify suitable split points for each feature type $f_k$, 
+TSF constructs a fixed-size set of candidate thresholds. 
+Let $f_k (t_{\mathrm{start}}, t_{\mathrm{end}})$ denote the $k$-th interval feature 
+computed over 
+the interval $(t_{\mathrm{start}}, t_{\mathrm{end}})$ for all training instances at 
+the current node. Let $V = \{ f_k^{(i)} (t_{\mathrm{start}}, t_{\mathrm{end}}) \mid i = 1, \dots, N \}$ 
+be the set of resulting feature values across all $N$ 
+instances.
+
+TSF then assigns a fixed number of $\kappa$ threshold per feature.
+This is achieved by first computing the minimum and 
+maximum values in $V$, denoted $a = \min V$ and 
+$b = \max V$, respectively. The interval $[a, b]$ 
+is then divided into $\kappa + 1$ equal-width segments.
+The $\kappa$ internal division points are used as 
+candidate thresholds:
+\begin{equation*}
+\tau_j = a + j \cdot \frac{b - a}{\kappa + 1}, \quad j = 1, 2, \dots, \kappa
+\end{equation*}
+This method ensures that the thresholds are uniformly 
+spaced across the feature value range and that their 
+number remains constant regardless of data distribution or 
+sample size. 
+
+\subsubsection*{Recursion and Termination}
+After getting the interval set from the $SampleIntervals()$ algorithm and computing the threshold-set for each feature type,
+TSF loops over every possible interval, every possible threshold and every possible interval feature.
+It then calculates the entropy and entrance gain for each combination and maximizes the entrance gain and saves the split data.
+Afterwards it checks if the entropy gain is zero. This is the termination condition for the recursion and the node
+is marked as a leaf. Then the data is split according to the best features, interval and threshold and the 
+function is called on the left and right dataset to build the children of the node.
+\begin{algorithm}[H]
+\caption{\textsc{BuildTSFTree}$(\mathcal{D})$}
+\begin{algorithmic}[1]
+\State $\langle T_1, T_2 \rangle \gets \textsc{SampleIntervals}(M)$
+\State Compute candidate thresholds $\text{Threshold}_k$ for each feature type $k$
+\State Initialize $E^* \gets 0$, $\Delta H^* \gets 0$, $t_1^* \gets 0$, $t_2^* \gets 0$, $\tau^* \gets 0$, $f^* \gets \emptyset$
+\ForAll{$(t_{start}, t_{end}) \in \langle T_{start}, T_{end} \rangle$}
+    \For{$k = 1$ to $K$}
+        \ForAll{$\tau \in \text{Threshold}_k$}
+            \State Compute $\Delta Entropy$ and $E$ for $f_k(t_{start}, t_{end}) \le \tau$
+            \If{$E > E^*$}
+                \State $E^* \gets E$, 
+				\State $\Delta Entropy^* \gets \Delta Entropy$, 
+				\State $t_{start}^* \gets t_{start}$, 
+				\State $t_{end}^* \gets t_{end}$, 
+				\State $\tau^* \gets \tau$, 
+				\State $f^* \gets f_k$
+            \EndIf
+        \EndFor
+    \EndFor
+\EndFor
+\If{$\Delta Entropy^* = 0$}
+    \State \Return leaf node with majority class of $\mathcal{D}$
+\EndIf
+\State $\mathcal{D}_{\text{left}} \gets \{(X, y) \in \mathcal{D} \mid f^*(X[t_{start}^*:t_{end}^*]) \le \tau^* \}$
+\State $\mathcal{D}_{\text{right}} \gets \{(X, y) \in \mathcal{D} \mid f^*(X[t_{start}^*:t_{end}^*]) > \tau^* \}$
+\State node.left $\gets$ \Call{BuildTSFTree}{$\mathcal{D}_{\text{left}}$}
+\State node.right $\gets$ \Call{BuildTSFTree}{$\mathcal{D}_{\text{right}}$}
+\State \Return internal node with $(f^*, t_{start}^*, t_{end}^*, \tau^*, \text{Left}, \text{Right})$
+\end{algorithmic}
+\end{algorithm}
